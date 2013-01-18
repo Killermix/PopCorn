@@ -26,6 +26,7 @@ namespace CasseBrique
             get
             {
                 return _Vie;
+                // PepOp
             }
         }
         private Bonus _BonusEventuel;
