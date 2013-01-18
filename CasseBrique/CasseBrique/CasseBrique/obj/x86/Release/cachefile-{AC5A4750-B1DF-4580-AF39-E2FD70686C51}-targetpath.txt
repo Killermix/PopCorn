@@ -1,0 +1,12 @@
+Content\raquette.xnb
+Content\balle.xnb
+Content\brique.xnb
+Content\BriqueAcier.xnb
+Content\BriqueAcierDur.xnb
+Content\BonusSmall.xnb
+Content\BonusAdhesive.xnb
+Content\BonusLife.xnb
+Content\BonusTall.xnb
+Content\BonusPowerBall.xnb
+Content\BonusBullets.xnb
+Content\PopCornFont.xnb
