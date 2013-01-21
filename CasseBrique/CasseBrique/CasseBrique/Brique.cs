@@ -26,7 +26,6 @@ namespace CasseBrique
             get
             {
                 return _Vie;
-                // PepOp
             }
         }
         private Bonus _BonusEventuel;
@@ -41,14 +40,6 @@ namespace CasseBrique
                 _BonusEventuel = value;
             }
         }
-
-        //public Rectangle CollisionRectangle
-        //{
-        //    get
-        //    {
-        //        return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-        //    }
-        //}
 
         public Rectangle CollisionRectangleHaut
         {
@@ -79,6 +70,38 @@ namespace CasseBrique
             get
             {
                 return new Rectangle((int)Position.X + Texture.Width, (int)Position.Y, Balle.Rayon, Texture.Height);
+            }
+        }
+
+        public Rectangle CollisionRectangleHautGauche
+        {
+            get
+            {
+                return new Rectangle((int)Position.X - (Balle.Rayon / 2), (int)Position.Y - (Balle.Rayon / 2), Balle.Rayon / 2 , Balle.Rayon / 2);
+            }
+        }
+
+        public Rectangle CollisionRectangleHautDroit
+        {
+            get
+            {
+                return new Rectangle((int)Position.X + Texture.Width, (int)Position.Y - (Balle.Rayon / 2), Balle.Rayon / 2, Balle.Rayon / 2);
+            }
+        }
+
+        public Rectangle CollisionRectangleBasGauche
+        {
+            get
+            {
+                return new Rectangle((int)Position.X - (Balle.Rayon / 2), (int)Position.Y + Texture.Height, Balle.Rayon / 2, Balle.Rayon / 2);
+            }
+        }
+
+        public Rectangle CollisionRectangleBasDroit
+        {
+            get
+            {
+                return new Rectangle((int)Position.X + Texture.Width, (int)Position.Y + Texture.Height, Balle.Rayon / 2, Balle.Rayon / 2);
             }
         }
 
@@ -141,100 +164,6 @@ namespace CasseBrique
                     _Balle.PowerBall = false;
                 }
 
-                ////Colission Coté Balle Venant de droite
-                //if (_Balle.Direction.X < 0 &&
-                //   (_Balle.CenterPositionX < (CollisionRectangle.X + Texture.Width + _Balle.Rayon)) &&
-                //   (_Balle.CenterPositionX > (CollisionRectangle.X + Texture.Width - _Balle.Rayon)) && //On Enlève encore le rayon pour avoir un espace de colision plus grand pour pas que la balle traverse l'espace de colision sans avoir colisionné cf schemas
-                //   (_Balle.CenterPositionY > CollisionRectangle.Y) &&
-                //   (_Balle.CenterPositionY < (CollisionRectangle.Y + Texture.Height)))
-                //{
-                //    if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                //    {
-                //        _Vie = BriqueLevel.Morte;
-                //    }
-                //    else
-                //    {
-                //        _Balle.ToucheBrique(true, false);
-                //    }
-
-                //    if (_Vie != BriqueLevel.Incassable)
-                //    {
-                //        _Vie--;
-                //    }
-
-                //    _Raquette.UpdateScore(100);
-                //}
-                ////Colission Coté Balle Venant de gauche
-                //else if (_Balle.Direction.X > 0 &&
-                //        (_Balle.CenterPositionX > (CollisionRectangle.X - _Balle.Rayon)) &&
-                //        (_Balle.CenterPositionX < CollisionRectangle.X + _Balle.Rayon) && //a gauche on l'ajoute
-                //        (_Balle.CenterPositionY > CollisionRectangle.Y) &&
-                //        (_Balle.CenterPositionY < (CollisionRectangle.Y + Texture.Height)))
-                //{
-                //    if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                //    {
-                //        _Vie = BriqueLevel.Morte;
-                //    }
-                //    else
-                //    {
-                //        _Balle.ToucheBrique(true, false);
-                //    }
-
-                //    if (_Vie != BriqueLevel.Incassable)
-                //    {
-                //        _Vie--;
-                //    }
-
-                //    _Raquette.UpdateScore(100);
-                //}
-                ////Colision dessous Balle venant du bas
-                //else if (_Balle.Direction.Y < 0 &&
-                //        (_Balle.CenterPositionY < (CollisionRectangle.Y + Texture.Height + _Balle.Rayon)) &&
-                //        (_Balle.CenterPositionY > (CollisionRectangle.Y + Texture.Height - _Balle.Rayon)) &&
-                //        (_Balle.CenterPositionX > CollisionRectangle.X) &&
-                //        (_Balle.CenterPositionX < (CollisionRectangle.X + Texture.Width)))
-                //{
-                //    if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                //    {
-                //        _Vie = BriqueLevel.Morte;
-                //    }
-                //    else
-                //    {
-                //        _Balle.ToucheBrique(false, true);
-                //    }
-
-                //    if (_Vie != BriqueLevel.Incassable)
-                //    {
-                //        _Vie--;
-                //    }
-
-                //    _Raquette.UpdateScore(100);
-                //}
-                ////Colision Dessus Balle venant du haut
-                //else if (_Balle.Direction.Y > 0 &&
-                //        (_Balle.CenterPositionY > (CollisionRectangle.Y - _Balle.Rayon)) &&
-                //        (_Balle.CenterPositionY < CollisionRectangle.Y + _Balle.Rayon) &&
-                //        (_Balle.CenterPositionX > CollisionRectangle.X) &&
-                //        (_Balle.CenterPositionX < (CollisionRectangle.X + Texture.Width)))
-                //{
-                //    if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                //    {
-                //        _Vie = BriqueLevel.Morte;
-                //    }
-                //    else
-                //    {
-                //        _Balle.ToucheBrique(false, true);
-                //    }
-
-                //    if (_Vie != BriqueLevel.Incassable)
-                //    {
-                //        _Vie--;
-                //    }
-
-                //    _Raquette.UpdateScore(100);
-                //}
-
-
                 //Colision Balle Venant du haut et de gauche
                 if (_Balle.Direction.Y > 0 && _Balle.Direction.X > 0)
                 {
@@ -249,11 +178,25 @@ namespace CasseBrique
                         InvertX = true;
                     }
 
-                    //Colision a droite
+                    //Colision en haut
                     if (CollisionRectangleHaut.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
                         Collision = true;
                         InvertY = true;
+                    }
+
+                    if (!Collision && CollisionRectangleHautGauche.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
+                    {
+                        if ((Position.X - _Balle.CenterPositionX) < (Position.Y - _Balle.CenterPositionY)) //Balle plus proche du rectangle du haut
+                        {
+                            Collision = true;
+                            InvertY = true;
+                        }
+                        else //Balle plus proche du rectangle du côté
+                        {
+                            Collision = true;
+                            InvertX = true;
+                        }
                     }
 
                     if(Collision)
@@ -297,6 +240,20 @@ namespace CasseBrique
                         InvertY = true;
                     }
 
+                    if (!Collision && CollisionRectangleHautDroit.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
+                    {
+                        if ((_Balle.CenterPositionX - (Position.X + Texture.Width)) < (Position.Y - _Balle.CenterPositionY)) //Balle plus proche du rectangle du haut
+                        {
+                            Collision = true;
+                            InvertY = true;
+                        }
+                        else //Balle plus proche du rectangle du côté
+                        {
+                            Collision = true;
+                            InvertX = true;
+                        }
+                    }
+
                     if (Collision)
                     {
                         if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
@@ -331,11 +288,25 @@ namespace CasseBrique
                         InvertX = true;
                     }
 
-                    //Colision en haut
+                    //Colision en bas
                     if (CollisionRectangleBas.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
                         Collision = true;
                         InvertY = true;
+                    }
+
+                    if (!Collision && CollisionRectangleBasDroit.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
+                    {
+                        if ((_Balle.CenterPositionX - (Position.X + Texture.Width)) < (_Balle.CenterPositionY - (Position.Y + Texture.Height))) //Balle plus proche du rectangle du bas
+                        {
+                            Collision = true;
+                            InvertY = true;
+                        }
+                        else //Balle plus proche du rectangle du côté
+                        {
+                            Collision = true;
+                            InvertX = true;
+                        }
                     }
 
                     if (Collision)
@@ -365,18 +336,32 @@ namespace CasseBrique
                     bool InvertY = false;
                     bool Collision = false;
 
-                    //Colision a droite
+                    //Colision a gauche
                     if (CollisionRectangleGauche.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
                         Collision = true;
                         InvertX = true;
                     }
 
-                    //Colision en haut
+                    //Colision en bas
                     if (CollisionRectangleBas.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
                         Collision = true;
                         InvertY = true;
+                    }
+
+                    if (!Collision && CollisionRectangleBasGauche.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
+                    {
+                        if ((Position.X - _Balle.CenterPositionX) < (_Balle.CenterPositionY - (Position.Y + Texture.Height))) //Balle plus proche du rectangle du bas
+                        {
+                            Collision = true;
+                            InvertY = true;
+                        }
+                        else //Balle plus proche du rectangle du côté
+                        {
+                            Collision = true;
+                            InvertX = true;
+                        }
                     }
 
                     if (Collision)
