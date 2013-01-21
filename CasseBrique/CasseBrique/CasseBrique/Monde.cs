@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace CasseBrique
 {
@@ -13,17 +14,18 @@ namespace CasseBrique
     {
         public List<Brique> Briques;
 
-        private int _screenHeight;
-        private int _screenWidth;
+        private Viewport _Viewport;
+        public int Niveau = 1;
 
-        public Monde(int screenWidth, int screenHeight)
+        public Monde(Viewport GameViewport)
         {
-            _screenHeight = screenHeight;
-            _screenWidth = screenWidth;
+            _Viewport = GameViewport;
         }
 
-        public void Initialize(int Niveau)
+        public override void Initialize()
         {
+            Position = new Vector2(_Viewport.X, _Viewport.Y);
+
             Briques = new List<Brique>();
 
             //if (Niveau == 1)
@@ -52,7 +54,7 @@ namespace CasseBrique
             //    }
             //}
 
-            if (Niveau == 2)
+            if (Niveau == 1)
             {
                 int EspacementHorizontal = 60;
                 int EspacementVertical = 52;
@@ -70,11 +72,11 @@ namespace CasseBrique
 
                         if (Ligne < 3)
                         {
-                            UneBrique = new Brique((BriqueLevel)(InvertLigneToVie - Ligne), _screenHeight, _screenWidth);
+                            UneBrique = new Brique((BriqueLevel)(InvertLigneToVie - Ligne), _Viewport.Height, _Viewport.Width);
                         }
                         else
                         {
-                            UneBrique = new Brique(BriqueLevel.Pierre, _screenHeight, _screenWidth);
+                            UneBrique = new Brique(BriqueLevel.Pierre, _Viewport.Height, _Viewport.Width);
                         }
 
 
@@ -90,7 +92,7 @@ namespace CasseBrique
                 }
             }
 
-            if (Niveau == 1)
+            if (Niveau == 2)
             {
                 int EspacementHorizontal = 60;
                 int EspacementVertical = 24;
@@ -104,7 +106,7 @@ namespace CasseBrique
                     {
                         if (Ligne > 0 && Ligne < 11 && (Colonne == 0 || Colonne == 6))
                         {
-                            Brique UneBrique = new Brique(BriqueLevel.Incassable, _screenHeight, _screenWidth);
+                            Brique UneBrique = new Brique(BriqueLevel.Incassable, _Viewport.Height, _Viewport.Width);
 
                             UneBrique.PositionX = FirstBriquePositionX;
                             UneBrique.PositionY = FirstBriquePositionY;
@@ -117,7 +119,7 @@ namespace CasseBrique
                         }
                         else if (Ligne == 0 || (Ligne == 11 && Colonne != 3))
                         {
-                            Brique UneBrique = new Brique(BriqueLevel.Incassable, _screenHeight, _screenWidth);
+                            Brique UneBrique = new Brique(BriqueLevel.Incassable, _Viewport.Height, _Viewport.Width);
 
                             UneBrique.PositionX = FirstBriquePositionX;
                             UneBrique.PositionY = FirstBriquePositionY;
@@ -130,7 +132,7 @@ namespace CasseBrique
                         }
                         else if(Ligne > 0 && Ligne < 11 && (Colonne == 2 || Colonne == 4) && Ligne != 5 && Ligne != 6)
                         {
-                            Brique UneBrique = new Brique(BriqueLevel.Pierre, _screenHeight, _screenWidth);
+                            Brique UneBrique = new Brique(BriqueLevel.Pierre, _Viewport.Height, _Viewport.Width);
 
                             UneBrique.PositionX = FirstBriquePositionX;
                             UneBrique.PositionY = FirstBriquePositionY;
@@ -152,6 +154,8 @@ namespace CasseBrique
         /// <param name="content"></param>
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content)
         {
+            Texture = content.Load<Texture2D>("BackgroundNiveau" + Niveau);
+
             foreach (Brique b in Briques)
             {
                 b.LoadContent(content);
@@ -192,6 +196,8 @@ namespace CasseBrique
         /// <param name="gameTime"></param>
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, GameTime gameTime)
         {
+            base.Draw(spriteBatch, gameTime);
+
             foreach (Brique b in Briques)
             {
                 b.Draw(spriteBatch, gameTime);

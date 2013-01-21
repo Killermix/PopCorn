@@ -26,7 +26,6 @@ namespace CasseBrique
         private Raquette _Raquette;
         private Balle _Balle;
         private Monde _Monde;
-        private int Niveau = 1;
 
         private bool IsPaused = false;
         private bool IsGameOver = false;
@@ -34,7 +33,6 @@ namespace CasseBrique
         private Viewport GameViewport;
         private Viewport InfosViewport;
         private Texture2D Background;
-        private Texture2D BackgroundNiveau1;
 
         public MyPopCorn()
         {
@@ -59,10 +57,7 @@ namespace CasseBrique
             GameViewport = new Viewport(8, 8, 484, 592);
             InfosViewport = new Viewport(510, 30, 170, 592);
 
-            if (Niveau == 1)
-            {
-                _Infos = new Infos(InfosViewport);
-            }
+            _Infos = new Infos(InfosViewport);
 
             _Raquette = new Raquette(GameViewport);
             _Raquette.Initialize();
@@ -70,8 +65,8 @@ namespace CasseBrique
             _Balle = new Balle(GameViewport);
             _Balle.Initialize();
 
-            _Monde = new Monde(Window.ClientBounds.Width, Window.ClientBounds.Height);
-            _Monde.Initialize(Niveau);
+            _Monde = new Monde(GameViewport);
+            _Monde.Initialize();
 
             base.Initialize();
         }
@@ -85,20 +80,15 @@ namespace CasseBrique
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //if (Niveau == 1)
-            //{
-                _Infos.LoadContent(Content);
-
-                _Raquette.LoadContent(Content, "raquette");
-
-                _Balle.LoadContent(Content, "balle");
-
-                Background = Content.Load<Texture2D>("Background");
-
-                BackgroundNiveau1 = Content.Load<Texture2D>("BackgroundNiveau1");
-            //}
+            Background = Content.Load<Texture2D>("Background");
 
             _Monde.LoadContent(Content);
+
+            _Infos.LoadContent(Content);
+
+            _Raquette.LoadContent(Content, "Raquette");
+
+            _Balle.LoadContent(Content, "Balle");
         }
 
         /// <summary>
@@ -158,8 +148,8 @@ namespace CasseBrique
 
             if (!IsLevelAlive)
             {
-                Niveau++;
-                _Monde.Initialize(Niveau);
+                _Monde.Niveau++;
+                _Monde.Initialize();
                 _Raquette.Initialize();
                 _Balle.Initialize();
                 _Monde.LoadContent(Content);
@@ -180,12 +170,13 @@ namespace CasseBrique
 
             spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 
-            spriteBatch.Draw(BackgroundNiveau1, new Vector2(GameViewport.X, GameViewport.Y), Color.White);
+            _Monde.Draw(spriteBatch, gameTime);
 
             _Infos.Draw(spriteBatch, gameTime);
+
             _Raquette.Draw(spriteBatch, gameTime);
+
             _Balle.Draw(spriteBatch, gameTime);
-            _Monde.Draw(spriteBatch, gameTime);
 
             spriteBatch.End();
             

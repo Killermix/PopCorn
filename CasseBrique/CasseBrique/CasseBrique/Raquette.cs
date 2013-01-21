@@ -56,11 +56,6 @@ namespace CasseBrique
             Position = new Vector2((_Viewport.X + (_Viewport.Width / 2)) - (C_DEFAULT_RAQUETTE_WIDTH / 2), _Viewport.Height - 30);
         }
 
-        public override void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content, string assetName)
-        {
-            base.LoadContent(content, assetName);
-        }
-
         public void HandleInput(Microsoft.Xna.Framework.Input.KeyboardState keyboardState)
         {
             if (keyboardState.IsKeyDown(Keys.Left) && Position.X > _Viewport.X)

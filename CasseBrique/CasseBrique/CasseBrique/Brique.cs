@@ -125,17 +125,17 @@ namespace CasseBrique
         {
             if (_Vie == BriqueLevel.Pierre)
             {
-                base.LoadContent(content, "brique2");
+                base.LoadContent(content, "Brique");
             }
 
             if (_Vie == BriqueLevel.Acier)
             {
-                base.LoadContent(content, "BriqueAcier2");
+                base.LoadContent(content, "BriqueAcier");
             }
 
             if (_Vie == BriqueLevel.AcierDur)
             {
-                base.LoadContent(content, "BriqueAcierDur2");
+                base.LoadContent(content, "BriqueAcierDur");
             }
 
             if (_Vie == BriqueLevel.Incassable)
