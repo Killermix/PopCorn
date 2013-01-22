@@ -76,7 +76,7 @@ namespace CasseBrique
              if (keyboardState.IsKeyDown(Keys.Space) && _Stuck)
             {
                 _Stuck = false;
-                PositionY = _Raquette.Position.Y - Texture.Height;
+                PositionY = _Raquette.Position.Y - 20;
                 Speed = 0.4f;
             }
 

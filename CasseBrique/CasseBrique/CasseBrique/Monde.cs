@@ -146,6 +146,36 @@ namespace CasseBrique
                     }
                 }
             }
+
+
+            if (Niveau == 3)
+            {
+                int EspacementHorizontal = 60;
+
+                int FirstBriquePositionX = 11;
+                int FirstBriquePositionY = 310;
+
+                for (int Colonne = 0; Colonne < 8; Colonne++)
+                {
+                    if (Colonne < 3 || Colonne > 4)
+                    {
+                        Brique UneBrique = new Brique(BriqueLevel.Incassable, _Viewport.Height, _Viewport.Width);
+
+                        UneBrique.PositionX = FirstBriquePositionX;
+                        UneBrique.PositionY = FirstBriquePositionY;
+
+                        UneBrique.PositionX += (Colonne * EspacementHorizontal);
+
+                        Briques.Add(UneBrique);
+                    }
+                }
+
+                Brique test = new Brique(BriqueLevel.Pierre, _Viewport.Height, _Viewport.Width);
+
+                test.Position = new Vector2(10, 10);
+
+                Briques.Add(test);
+            }
         }
 
         /// <summary>

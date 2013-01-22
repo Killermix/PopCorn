@@ -42,34 +42,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="raquette.png">
-      <Name>raquette</Name>
+    <Compile Include="Raquette.png">
+      <Name>Raquette</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="balle.png">
-      <Name>balle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="brique.png">
-      <Name>brique</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BriqueAcier.png">
-      <Name>BriqueAcier</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="BriqueAcierDur.png">
-      <Name>BriqueAcierDur</Name>
+    <Compile Include="Balle.png">
+      <Name>Balle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -152,22 +133,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BriqueAcier2.png">
-      <Name>BriqueAcier2</Name>
+    <Compile Include="BriqueAcier.png">
+      <Name>BriqueAcier</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BriqueAcierDur2.png">
-      <Name>BriqueAcierDur2</Name>
+    <Compile Include="BriqueAcierDur.png">
+      <Name>BriqueAcierDur</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="brique2.png">
-      <Name>brique2</Name>
+    <Compile Include="Brique.png">
+      <Name>Brique</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -175,6 +156,20 @@
   <ItemGroup>
     <Compile Include="BriqueIncassable.png">
       <Name>BriqueIncassable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BackgroundNiveau2.png">
+      <Name>BackgroundNiveau2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BackgroundNiveau3.png">
+      <Name>BackgroundNiveau3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
