@@ -63,7 +63,7 @@ namespace CasseBrique
 
             _Out = false;
 
-            _StartTimer = 100.0f;
+            _StartTimer = 200.0f;
         }
 
         public void HandleInput(Microsoft.Xna.Framework.Input.KeyboardState keyboardState, Raquette _Raquette)
@@ -73,15 +73,15 @@ namespace CasseBrique
                 _Launched = true;
             }
 
-             if (keyboardState.IsKeyDown(Keys.Space) && _Stuck)
+            if (keyboardState.IsKeyDown(Keys.Space) && _Stuck)
             {
                 _Stuck = false;
                 PositionY = _Raquette.Position.Y - 20;
-                Speed = 0.4f;
+                Speed = 0.5f;
             }
 
 
-            //a revoir
+            //Si la balle est stuck tant que la balle reste dans le cadre on la fait bouger avec la raquette
             if (((keyboardState.IsKeyDown(Keys.Left) && (Position.X > _Viewport.X)) || (keyboardState.IsKeyDown(Keys.Right) && (Position.X + Texture.Width) < (_Viewport.Width + _Viewport.X) )) && _Stuck)
             {
                 PositionX = _Raquette.PositionX + _DistanceFromRaquette;
@@ -98,7 +98,14 @@ namespace CasseBrique
             {
                 if (!_Stuck)
                 {
-                    Speed = 0.4f;
+                    if (_Raquette.ListeBonus.ContainsKey(BonusType.Fast))
+                    {
+                        Speed = 0.8f;
+                    }
+                    else
+                    {
+                        Speed = 0.5f;
+                    }
 
                     if ((CenterPositionY >= (_Raquette.CollisionRectangle.Y - Rayon)) &&
                     (CenterPositionY <= (_Raquette.CollisionRectangle.Y + Rayon)) && // On ajoute qd mm le rayon en dessous pour avoir une zone de colision plus épaisse

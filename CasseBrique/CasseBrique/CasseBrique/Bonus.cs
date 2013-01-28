@@ -12,9 +12,10 @@ namespace CasseBrique
         Tall = 1,
         Adhesive = 2,
         Small = 3,
-        Bullets = 4,
-        PowerBall = 5,
-        Life = 6
+        Fast = 4,
+        Bullets = 5,
+        PowerBall = 6,
+        Life = 7
     }
 
     public class Bonus : Sprite
@@ -57,13 +58,14 @@ namespace CasseBrique
             }
             else if (rdmNumber2 == 10)
             {
-                //List<BonusType> BonusRare = new List<BonusType>();
-                //BonusRare.Add(BonusType.Small);
+                List<BonusType> BonusRare = new List<BonusType>();
+                BonusRare.Add(BonusType.Small);
+                BonusRare.Add(BonusType.Fast);
 
-                //int RandomIndex = rdm2.Next(0, BonusRare.Count - 1);
+                int RandomIndex = MyPopCorn.GlobalRnd.Next(0, BonusRare.Count);
 
-                //_BonusType = BonusRare[RandomIndex];
-                _BonusType = BonusType.Small;
+                _BonusType = BonusRare[RandomIndex];
+                //_BonusType = BonusType.Small;
             }
             else if (rdmNumber1 == 5)
             {
@@ -106,6 +108,9 @@ namespace CasseBrique
                     break;
                 case BonusType.Small:
                     AssetName = "BonusSmall";
+                    break;
+                case BonusType.Fast:
+                    AssetName = "BonusFast";
                     break;
                 case BonusType.Bullets:
                     AssetName = "BonusBullets";

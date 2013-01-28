@@ -29,6 +29,7 @@ namespace CasseBrique
 
         private bool IsPaused = false;
         private bool IsGameOver = false;
+        private bool IsPauseKeyDownBefore = false;
 
         private Viewport GameViewport;
         private Viewport InfosViewport;
@@ -111,6 +112,10 @@ namespace CasseBrique
 
             _Clavier = Keyboard.GetState();
 
+            GererPause();
+
+            GererMort();
+
             if (!IsPaused && !IsGameOver && !_Balle.Out)
             {
                 _Raquette.HandleInput(_Clavier);
@@ -120,23 +125,8 @@ namespace CasseBrique
                 _Balle.HandleInput(_Clavier, _Raquette);
 
                 _Balle.Update(gameTime, _Raquette);
-            }
 
-            _Monde.Update(gameTime, _Balle, _Raquette);
-
-            if (_Clavier.IsKeyDown(Keys.Space) && _Balle.Out)
-            {
-                _Raquette.Vie--;
-
-                if (_Raquette.Vie < 1)
-                {
-                    IsGameOver = true;
-                }
-                else
-                {
-                    _Raquette.Initialize();
-                    _Balle.Initialize();
-                }
+                _Monde.Update(gameTime, _Balle, _Raquette);
             }
 
             _Infos.Update(gameTime, _Raquette);
@@ -181,6 +171,36 @@ namespace CasseBrique
             spriteBatch.End();
             
             base.Draw(gameTime);
+        }
+
+        private void GererPause()
+        {
+            bool PauseKeyDownNow = _Clavier.IsKeyDown(Keys.P);
+
+            if (PauseKeyDownNow && !IsPauseKeyDownBefore)
+            {
+                IsPaused = !IsPaused;
+            }
+
+            IsPauseKeyDownBefore = PauseKeyDownNow;
+        }
+
+        private void GererMort()
+        {
+            if (_Clavier.IsKeyDown(Keys.Space) && _Balle.Out)
+            {
+                _Raquette.Vie--;
+
+                if (_Raquette.Vie < 1)
+                {
+                    IsGameOver = true;
+                }
+                else
+                {
+                    _Raquette.Initialize();
+                    _Balle.Initialize();
+                }
+            }
         }
     }
 }

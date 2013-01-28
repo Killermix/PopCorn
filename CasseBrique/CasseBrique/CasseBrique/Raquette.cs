@@ -83,13 +83,34 @@ namespace CasseBrique
 
             if (_ListeBonus.ContainsKey(BonusType.Tall))
             {
-                _Size = 1.5f;
+                if (_Size < 1.5f)
+                {
+                    _Size += 0.01f;
+                    PositionX -= 0.5f;
+                }
+            }
+            else if (_ListeBonus.ContainsKey(BonusType.Small))
+            {
+                if (_Size > 0.5f)
+                {
+                    _Size -= 0.01f;
+                    PositionX += 0.5f;
+                }
+            }
+            else // Pour gérer la décroissance et la recroissance
+            {
+                if (_Size > 1.0f)
+                {
+                    _Size -= 0.01f;
+                    PositionX += 0.5f;
+                }
+                else if(_Size < 1.0f)
+                {
+                    _Size += 0.01f;
+                    PositionX -= 0.5f;
+                }
             }
 
-            if (_ListeBonus.ContainsKey(BonusType.Small))
-            {
-                _Size = 0.5f;
-            }
 
             SecondCout += ElapsedTime;
 
@@ -115,15 +136,14 @@ namespace CasseBrique
 
         public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (_ListeBonus.ContainsKey(BonusType.Tall) || _ListeBonus.ContainsKey(BonusType.Small))
-            {
+            //if (_ListeBonus.ContainsKey(BonusType.Tall) || _ListeBonus.ContainsKey(BonusType.Small))
+            //{
                 spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Vector2.Zero, new Vector2(_Size, 1f), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0f);
-            }
-            else
-            {
-                _Size = 1.0f;
-                spriteBatch.Draw(Texture, Position, Color.White);
-            }
+            //}
+            //else
+            //{
+            //    spriteBatch.Draw(Texture, Position, Color.White);
+            //}
         }
 
         public void AddBonus(BonusType NewBonus)
