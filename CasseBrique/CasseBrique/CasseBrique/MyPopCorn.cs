@@ -118,15 +118,19 @@ namespace CasseBrique
 
             if (!IsPaused && !IsGameOver && !_Balle.Out)
             {
-                _Raquette.HandleInput(_Clavier);
+                _Raquette.HandleInput(_Clavier, Content);
 
                 _Raquette.Update(gameTime);
 
                 _Balle.HandleInput(_Clavier, _Raquette);
 
                 _Balle.Update(gameTime, _Raquette);
+            }
 
+            if (!IsPaused && !IsGameOver)
+            {
                 _Monde.Update(gameTime, _Balle, _Raquette);
+                _Monde.ReloadSomeContent(Content);
             }
 
             _Infos.Update(gameTime, _Raquette);

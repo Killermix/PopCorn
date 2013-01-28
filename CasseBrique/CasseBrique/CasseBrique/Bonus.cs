@@ -48,9 +48,9 @@ namespace CasseBrique
             if (rdmNumber3 == 100)
             {
                 List<BonusType> BonusTresRare = new List<BonusType>();
-                BonusTresRare.Add(BonusType.Bullets);
                 BonusTresRare.Add(BonusType.PowerBall);
                 BonusTresRare.Add(BonusType.Life);
+                BonusTresRare.Add(BonusType.Bullets);
 
                 int RandomIndex = MyPopCorn.GlobalRnd.Next(0, BonusTresRare.Count);
 

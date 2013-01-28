@@ -110,6 +110,7 @@
     <Compile Include="Balle.cs" />
     <Compile Include="Bonus.cs" />
     <Compile Include="Brique.cs" />
+    <Compile Include="Bullets.cs" />
     <Compile Include="Infos.cs" />
     <Compile Include="Monde.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

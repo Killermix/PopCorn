@@ -28,6 +28,14 @@ namespace CasseBrique
                 return _Vie;
             }
         }
+        private BriqueLevel _VieOriginelle;
+        public BriqueLevel VieOriginelle
+        {
+            get
+            {
+                return _VieOriginelle;
+            }
+        }
         private Bonus _BonusEventuel;
         public Bonus BonusEventuel
         {
@@ -40,6 +48,7 @@ namespace CasseBrique
                 _BonusEventuel = value;
             }
         }
+        public bool MustReloadContent = false;
 
         public Rectangle CollisionRectangleHaut
         {
@@ -105,11 +114,20 @@ namespace CasseBrique
             }
         }
 
+        public Rectangle CollisionRectangleBrique
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+            }
+        }
+
         public Brique(BriqueLevel Vie, int screenHeight, int screenWidth)
         {
             _screenHeight = screenHeight;
             _screenWidth = screenWidth;
             _Vie = Vie;
+            _VieOriginelle = Vie;
             _BonusEventuel = new Bonus();
         }
 
@@ -164,12 +182,16 @@ namespace CasseBrique
                     _Balle.PowerBall = false;
                 }
 
+                bool InvertX = false;
+                bool InvertY = false;
+                bool Collision = false;
+
                 //Colision Balle Venant du haut et de gauche
                 if (_Balle.Direction.Y > 0 && _Balle.Direction.X > 0)
                 {
-                    bool InvertX = false;
-                    bool InvertY = false;
-                    bool Collision = false;
+                    InvertX = false;
+                    InvertY = false;
+                    Collision = false;
 
                     //Colision a gauche
                     if(CollisionRectangleGauche.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
@@ -198,33 +220,13 @@ namespace CasseBrique
                             InvertX = true;
                         }
                     }
-
-                    if(Collision)
-                    {
-                        if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                        {
-                            _Vie = BriqueLevel.Morte;
-                        }
-                        else
-                        {
-                            if (_Vie != BriqueLevel.Incassable)
-                            {
-                                _Vie--;
-                            }
-
-                            _Balle.ToucheBrique(InvertX, InvertY);
-                        }
-
-                        _Raquette.UpdateScore(100);
-                    }
                 }
-
                 //Collision Balle venant du haut et de droite
-                if (_Balle.Direction.Y > 0 && _Balle.Direction.X < 0)
+                else if (_Balle.Direction.Y > 0 && _Balle.Direction.X < 0)
                 {
-                    bool InvertX = false;
-                    bool InvertY = false;
-                    bool Collision = false;
+                    InvertX = false;
+                    InvertY = false;
+                    Collision = false;
 
                     //Colision a droite
                     if (CollisionRectangleDroite.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
@@ -253,33 +255,13 @@ namespace CasseBrique
                             InvertX = true;
                         }
                     }
-
-                    if (Collision)
-                    {
-                        if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                        {
-                            _Vie = BriqueLevel.Morte;
-                        }
-                        else
-                        {
-                            if (_Vie != BriqueLevel.Incassable)
-                            {
-                                _Vie--;
-                            }
-
-                            _Balle.ToucheBrique(InvertX, InvertY);
-                        }
-
-                        _Raquette.UpdateScore(100);
-                    }
                 }
-
                 //Collision Balle venant du bas et de droite
-                if (_Balle.Direction.Y < 0 && _Balle.Direction.X < 0)
+                else if (_Balle.Direction.Y < 0 && _Balle.Direction.X < 0)
                 {
-                    bool InvertX = false;
-                    bool InvertY = false;
-                    bool Collision = false;
+                    InvertX = false;
+                    InvertY = false;
+                    Collision = false;
 
                     //Colision a droite
                     if (CollisionRectangleDroite.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
@@ -308,33 +290,13 @@ namespace CasseBrique
                             InvertX = true;
                         }
                     }
-
-                    if (Collision)
-                    {
-                        if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
-                        {
-                            _Vie = BriqueLevel.Morte;
-                        }
-                        else
-                        {
-                            if (_Vie != BriqueLevel.Incassable)
-                            {
-                                _Vie--;
-                            }
-
-                            _Balle.ToucheBrique(InvertX, InvertY);
-                        }
-
-                        _Raquette.UpdateScore(100);
-                    }
                 }
-
                 //Collision Balle venant du bas et de Gauche
-                if (_Balle.Direction.Y < 0 && _Balle.Direction.X > 0)
+                else if (_Balle.Direction.Y < 0 && _Balle.Direction.X > 0)
                 {
-                    bool InvertX = false;
-                    bool InvertY = false;
-                    bool Collision = false;
+                    InvertX = false;
+                    InvertY = false;
+                    Collision = false;
 
                     //Colision a gauche
                     if (CollisionRectangleGauche.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
@@ -363,24 +325,50 @@ namespace CasseBrique
                             InvertX = true;
                         }
                     }
+                }
 
-                    if (Collision)
+                if (Collision)
+                {
+                    if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
                     {
-                        if (_Raquette.ListeBonus.ContainsKey(BonusType.PowerBall))
+                        _Vie = BriqueLevel.Morte;
+                    }
+                    else
+                    {
+                        if (_Vie != BriqueLevel.Incassable)
                         {
-                            _Vie = BriqueLevel.Morte;
+                            _Vie--;
                         }
-                        else
-                        {
-                            if (_Vie != BriqueLevel.Incassable)
-                            {
-                                _Vie--;
-                            }
 
-                            _Balle.ToucheBrique(InvertX, InvertY);
+                        _Balle.ToucheBrique(InvertX, InvertY);
+                    }
+
+                    _Raquette.UpdateScore(100);
+
+                    if (_VieOriginelle > _Vie)
+                    {
+                        MustReloadContent = true;
+                    }
+                }
+
+
+                foreach (Bullets Bullet in _Raquette.ListeBullets)
+                {
+                    if (CollisionRectangleBrique.Intersects(Bullet.CollisionRectangle))
+                    {
+                        if (_Vie != BriqueLevel.Incassable)
+                        {
+                            _Vie--;
                         }
+
+                        Bullet.isObsolete = true;
 
                         _Raquette.UpdateScore(100);
+
+                        if (_VieOriginelle > _Vie)
+                        {
+                            MustReloadContent = true;
+                        }
                     }
                 }
 

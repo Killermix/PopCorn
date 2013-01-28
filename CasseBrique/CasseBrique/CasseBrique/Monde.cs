@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace CasseBrique
 {
@@ -182,7 +183,7 @@ namespace CasseBrique
         /// Charge les textures de chaque brique
         /// </summary>
         /// <param name="content"></param>
-        public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content)
+        public void LoadContent(ContentManager content)
         {
             Texture = content.Load<Texture2D>("BackgroundNiveau" + Niveau);
 
@@ -217,6 +218,23 @@ namespace CasseBrique
             {
                 Briques.Remove(b);
             }
+
+            List<Bullets> BulletsToDelete = new List<Bullets>();
+
+            foreach (Bullets Bullet in _Raquette.ListeBullets)
+            {
+                Bullet.Update(gameTime);
+
+                if (Bullet.isObsolete)
+                {
+                    BulletsToDelete.Add(Bullet);
+                }
+            }
+
+            foreach (Bullets Bullet in BulletsToDelete)
+            {
+                _Raquette.ListeBullets.Remove(Bullet);
+            }
         }
 
         /// <summary>
@@ -231,6 +249,41 @@ namespace CasseBrique
             foreach (Brique b in Briques)
             {
                 b.Draw(spriteBatch, gameTime);
+            }
+        }
+
+        public void ReloadSomeContent(ContentManager content)
+        {
+            List<Brique> BriquesToReloadContent = (from b in Briques
+                                                   where b.MustReloadContent
+                                                   select b).ToList();
+
+            foreach (Brique b in BriquesToReloadContent)
+            {
+                switch (b.VieOriginelle)
+                {
+                    case BriqueLevel.Acier:
+                        b.LoadContent(content, "BriqueAcierCassee");
+                        break;
+                    case BriqueLevel.AcierDur:
+                        if (b.Vie == BriqueLevel.Acier)
+                        {
+                            b.LoadContent(content, "BriqueAcierDurCasse1");
+                        }
+                        if (b.Vie == BriqueLevel.Pierre)
+                        {
+                            b.LoadContent(content, "BriqueAcierDurCasse2");
+                        }
+                        break;
+                    case BriqueLevel.Incassable:
+                    case BriqueLevel.Morte:
+                    case BriqueLevel.Pierre:
+                    default:
+                        break;
+                }
+
+
+                b.MustReloadContent = false;
             }
         }
     }
