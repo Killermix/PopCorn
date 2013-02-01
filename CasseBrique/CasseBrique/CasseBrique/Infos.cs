@@ -18,7 +18,7 @@ namespace CasseBrique
         private float _ElapsedTime = 0.0f;
         private int _Fps = 0;
         private int _Vies = 1000;
-        private Dictionary<BonusType, int> _Bonus;
+        private Dictionary<BonusType, int> _Bonus = new Dictionary<BonusType,int>();
         private Texture2D _Vie;
         private int _Score = 0;
 
@@ -56,7 +56,9 @@ namespace CasseBrique
         {
             _Frames++;
 
-            spriteBatch.DrawString(_PopCornFont, string.Format("FPS = {0}", _Fps), new Vector2(_Viewport.X + 20, _Viewport.Y + 15), Color.White);
+            spriteBatch.DrawString(_PopCornFont, string.Format("FPS = {0}", _Fps), new Vector2(_Viewport.X + 20, _Viewport.Y + 8), Color.White);
+            spriteBatch.DrawString(_PopCornFont, "P = Pause", new Vector2(_Viewport.X + 20, _Viewport.Y + 25), Color.White);
+            spriteBatch.DrawString(_PopCornFont, "ESC = Exit", new Vector2(_Viewport.X + 20, _Viewport.Y + 42), Color.White);
 
             spriteBatch.DrawString(_PopCornFontBig, "VIES", new Vector2(_Viewport.X + 55, _Viewport.Y + 115), Color.Green);
             //spriteBatch.DrawString(_PopCornFont, _Vies.ToString(), new Vector2(_Viewport.X + 20, _Viewport.Y + 150), Color.White);
@@ -65,7 +67,7 @@ namespace CasseBrique
 
             for (int i = 0; i < _Vies; i++)
             {
-                spriteBatch.Draw(_Vie, new Vector2(_Viewport.X + 10, _Viewport.Y + 155 + i * EspacementVertical), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f); 
+                spriteBatch.Draw(_Vie, new Vector2(_Viewport.X + 10, _Viewport.Y + 152 + i * EspacementVertical), null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f); 
             }
 
 

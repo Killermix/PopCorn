@@ -180,7 +180,7 @@ namespace CasseBrique
         {
             //if (_ListeBonus.ContainsKey(BonusType.Tall) || _ListeBonus.ContainsKey(BonusType.Small))
             //{
-                spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Vector2.Zero, new Vector2(_SizeScale, 1f), Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0f);
+                spriteBatch.Draw(Texture, Position, null, Color.White, 0f, Vector2.Zero, new Vector2(_SizeScale, 1f), SpriteEffects.None, 0f);
             //}
             //else
             //{

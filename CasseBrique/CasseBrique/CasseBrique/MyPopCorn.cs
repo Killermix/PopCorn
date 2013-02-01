@@ -26,10 +26,12 @@ namespace CasseBrique
         private Raquette _Raquette;
         private Balle _Balle;
         private Monde _Monde;
+        private Menu _Menu;
 
         private bool IsPaused = false;
         private bool IsGameOver = false;
         private bool IsPauseKeyDownBefore = false;
+        private bool IsStarted = false;
 
         private Viewport GameViewport;
         private Viewport InfosViewport;
@@ -69,7 +71,31 @@ namespace CasseBrique
             _Monde = new Monde(GameViewport);
             _Monde.Initialize();
 
+            _Menu = new Menu(Window.ClientBounds.Width, Window.ClientBounds.Height);
+            _Menu.OnBoutonSelected += new EventHandler(_Menu_OnBoutonSelected);
+
             base.Initialize();
+        }
+
+        protected void _Menu_OnBoutonSelected(object sender, EventArgs e)
+        {
+            MenuBouton SelectedBouton = sender as MenuBouton;
+
+            switch (SelectedBouton.BoutonAction)
+            {
+                case MenuAction.PlayClassic:
+                    IsStarted = true;
+                    break;
+                case MenuAction.PlayInfinite:
+                    Exit();
+                    break;
+                case MenuAction.Score:
+                    Exit();
+                    break;
+                case MenuAction.Exit:
+                    Exit();
+                    break;
+            }
         }
 
         /// <summary>
@@ -90,6 +116,8 @@ namespace CasseBrique
             _Raquette.LoadContent(Content, "Raquette");
 
             _Balle.LoadContent(Content, "Balle");
+
+            _Menu.LoadContent(Content);
         }
 
         /// <summary>
@@ -112,41 +140,54 @@ namespace CasseBrique
 
             _Clavier = Keyboard.GetState();
 
-            GererPause();
-
-            GererMort();
-
-            if (!IsPaused && !IsGameOver && !_Balle.Out)
+            if (IsStarted)
             {
-                _Raquette.HandleInput(_Clavier, Content);
+                GererPause();
 
-                _Raquette.Update(gameTime);
+                GererMort();
 
-                _Balle.HandleInput(_Clavier, _Raquette);
+                if (_Clavier.IsKeyDown(Keys.Escape))
+                {
+                    IsStarted = false;
+                    this.Initialize();
+                }
 
-                _Balle.Update(gameTime, _Raquette);
+                if (!IsPaused && !IsGameOver && !_Balle.Out)
+                {
+                    _Raquette.HandleInput(_Clavier, Content);
+
+                    _Raquette.Update(gameTime);
+
+                    _Balle.HandleInput(_Clavier, _Raquette);
+
+                    _Balle.Update(gameTime, _Raquette);
+                }
+
+                if (!IsPaused && !IsGameOver)
+                {
+                    _Monde.Update(gameTime, _Balle, _Raquette);
+                    _Monde.ReloadSomeContent(Content);
+                }
+
+                _Infos.Update(gameTime, _Raquette);
+
+                bool IsLevelAlive = (from b in _Monde.Briques
+                                     where b.Vie != BriqueLevel.Incassable && b.Vie != BriqueLevel.Morte
+                                     select b).Any();
+
+
+                if (!IsLevelAlive)
+                {
+                    _Monde.Niveau++;
+                    _Monde.Initialize();
+                    _Raquette.Initialize();
+                    _Balle.Initialize();
+                    _Monde.LoadContent(Content);
+                }
             }
-
-            if (!IsPaused && !IsGameOver)
+            else
             {
-                _Monde.Update(gameTime, _Balle, _Raquette);
-                _Monde.ReloadSomeContent(Content);
-            }
-
-            _Infos.Update(gameTime, _Raquette);
-
-            bool IsLevelAlive = (from b in _Monde.Briques
-                                    where b.Vie != BriqueLevel.Incassable && b.Vie != BriqueLevel.Morte
-                                    select b).Any();
-
-
-            if (!IsLevelAlive)
-            {
-                _Monde.Niveau++;
-                _Monde.Initialize();
-                _Raquette.Initialize();
-                _Balle.Initialize();
-                _Monde.LoadContent(Content);
+                _Menu.Update(gameTime, _Clavier);
             }
 
             base.Update(gameTime);
@@ -162,15 +203,22 @@ namespace CasseBrique
 
             spriteBatch.Begin();
 
-            spriteBatch.Draw(Background, Vector2.Zero, Color.White);
+            if (IsStarted)
+            {
+                spriteBatch.Draw(Background, Vector2.Zero, Color.White);
 
-            _Monde.Draw(spriteBatch, gameTime);
+                _Monde.Draw(spriteBatch, gameTime);
 
-            _Infos.Draw(spriteBatch, gameTime);
+                _Infos.Draw(spriteBatch, gameTime);
 
-            _Raquette.Draw(spriteBatch, gameTime);
+                _Raquette.Draw(spriteBatch, gameTime);
 
-            _Balle.Draw(spriteBatch, gameTime);
+                _Balle.Draw(spriteBatch, gameTime);
+            }
+            else
+            {
+                _Menu.Draw(spriteBatch);
+            }
 
             spriteBatch.End();
             

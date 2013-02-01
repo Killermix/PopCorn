@@ -1,0 +1,6 @@
+TODO
+-Gerer le stuck sur les bord de l'écran et lorsque la balle reduit (faire partir la balle si elle est dans les airs lorsqu'elle réduit, pas besoin de gérer si elle s'agrandit) 
+-Gestion sauvegarde (xml?)
+-Animation des explosions des briques : http://www.berecursive.com/2008/c/sprite-sheets-in-xna-the-basics
+-Les bonus malus n'ont pas l'air d'arriver de manière aléatoire, on dirait qu'il arrive tous en même temps ou pas du tout
+-Optimisations...

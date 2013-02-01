@@ -37,10 +37,10 @@ namespace CasseBrique
         public Bonus()
         {
             //Bonus une Chance sur 5
-            int rdmNumber1 = MyPopCorn.GlobalRnd.Next(1, 6);
+            int rdmNumber1 = MyPopCorn.GlobalRnd.Next(1, 11);
 
             //Bonus une Chance sur 10
-            int rdmNumber2 = MyPopCorn.GlobalRnd.Next(1, 11);
+            int rdmNumber2 = MyPopCorn.GlobalRnd.Next(1, 21);
 
             //Bonus une Chance sur 100
             int rdmNumber3 = MyPopCorn.GlobalRnd.Next(1, 101);
@@ -56,7 +56,7 @@ namespace CasseBrique
 
                 _BonusType = BonusTresRare[RandomIndex];
             }
-            else if (rdmNumber2 == 10)
+            else if (rdmNumber2 == 20)
             {
                 List<BonusType> BonusRare = new List<BonusType>();
                 BonusRare.Add(BonusType.Small);
@@ -67,7 +67,7 @@ namespace CasseBrique
                 _BonusType = BonusRare[RandomIndex];
                 //_BonusType = BonusType.Small;
             }
-            else if (rdmNumber1 == 5)
+            else if (rdmNumber1 == 10)
             {
                 List<BonusType> BonusNormaux = new List<BonusType>();
                 BonusNormaux.Add(BonusType.Tall);
