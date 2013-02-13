@@ -90,7 +90,7 @@ namespace CasseBrique
 
         public void Update(GameTime gameTime, Raquette _Raquette)
         {
-            int PositionCentreRaquette = _Raquette.CollisionRectangle.X + (_Raquette.CollisionRectangle.Width / 2);
+             int PositionCentreRaquette = _Raquette.CollisionRectangle.X + (_Raquette.CollisionRectangle.Width / 2);
 
             _StartTimer -= ElapsedTime;
 
@@ -112,26 +112,13 @@ namespace CasseBrique
                     (CenterPositionX >= (_Raquette.CollisionRectangle.X - Rayon)) &&
                     (CenterPositionX <= (_Raquette.CollisionRectangle.X + _Raquette.CollisionRectangle.Width + Rayon))) //Si Touche la raquette
                     {
-                        float Ecart = 0;
+                        float Ecart = (CenterPositionX - _Raquette.Position.X) / _Raquette.CollisionRectangle.Width; //On rammenne l'ecart entre 0 et 1
 
-                        Ecart = Position.X - PositionCentreRaquette;
+                        //double angle = (150f / 180f * Math.PI) - Ecart * (120f / 180f * Math.PI); // Pour ecart variant entre 150 et 30°  (150 - Ecart * 120) et on transforme les angle en radian
 
-                        if (Position.X < PositionCentreRaquette)
-                        {
-                            Ecart = -Ecart;
-                        }
+                        double angle = (130f / 180f * Math.PI) - Ecart * (80 / 180f * Math.PI); // Pour ecart variant entre 130 et 50°  (130 - Ecart * 80) et on transforme les angle en radian
 
-                        float EcartMax = _Raquette.CollisionRectangle.Width / 2 + Rayon; // On rajoute le rayon de la balle pour avoir les bords cf shemas raquette
-
-                        float DirectionX = Ecart / EcartMax;
-                        float DirectionY = 1 - ((0.8f * Ecart) / EcartMax);
-
-                        if (Direction.X < 0)
-                        {
-                            DirectionX = -DirectionX;
-                        }
-
-                        Direction = new Vector2(DirectionX, -DirectionY);
+                        Direction = new Vector2((float)Math.Cos(angle), -(float)Math.Sin(angle));
 
                         if (_Raquette.ListeBonus.ContainsKey(BonusType.Adhesive))
                         {
