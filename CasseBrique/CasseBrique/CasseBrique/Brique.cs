@@ -19,6 +19,8 @@ namespace CasseBrique
     {
         private int _screenHeight;
         private int _screenWidth;
+        public const int C_DEFAULT_BRIQUE_WIDTH = 58;
+        public const int C_DEFAULT_BRIQUE_HEIGHT = 22;
         
         private BriqueLevel _Vie = BriqueLevel.Pierre;
         public BriqueLevel Vie
@@ -54,7 +56,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y - (Balle.Rayon), Texture.Width, Balle.Rayon);
+                return new Rectangle((int)Position.X, (int)Position.Y - (Balle.Rayon), C_DEFAULT_BRIQUE_WIDTH, Balle.Rayon);
             }
         }
 
@@ -62,7 +64,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y + Texture.Height, Texture.Width, Balle.Rayon);
+                return new Rectangle((int)Position.X, (int)Position.Y + C_DEFAULT_BRIQUE_HEIGHT, C_DEFAULT_BRIQUE_WIDTH, Balle.Rayon);
             }
         }
 
@@ -70,7 +72,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X - Balle.Rayon, (int)Position.Y, Balle.Rayon, Texture.Height);
+                return new Rectangle((int)Position.X - Balle.Rayon, (int)Position.Y, Balle.Rayon, C_DEFAULT_BRIQUE_HEIGHT);
             }
         }
 
@@ -78,7 +80,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X + Texture.Width, (int)Position.Y, Balle.Rayon, Texture.Height);
+                return new Rectangle((int)Position.X + C_DEFAULT_BRIQUE_WIDTH, (int)Position.Y, Balle.Rayon, C_DEFAULT_BRIQUE_HEIGHT);
             }
         }
 
@@ -94,7 +96,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X + Texture.Width, (int)Position.Y - (Balle.Rayon / 2), Balle.Rayon / 2, Balle.Rayon / 2);
+                return new Rectangle((int)Position.X + C_DEFAULT_BRIQUE_WIDTH, (int)Position.Y - (Balle.Rayon / 2), Balle.Rayon / 2, Balle.Rayon / 2);
             }
         }
 
@@ -102,7 +104,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X - (Balle.Rayon / 2), (int)Position.Y + Texture.Height, Balle.Rayon / 2, Balle.Rayon / 2);
+                return new Rectangle((int)Position.X - (Balle.Rayon / 2), (int)Position.Y + C_DEFAULT_BRIQUE_HEIGHT, Balle.Rayon / 2, Balle.Rayon / 2);
             }
         }
 
@@ -110,7 +112,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X + Texture.Width, (int)Position.Y + Texture.Height, Balle.Rayon / 2, Balle.Rayon / 2);
+                return new Rectangle((int)Position.X + C_DEFAULT_BRIQUE_WIDTH, (int)Position.Y + C_DEFAULT_BRIQUE_HEIGHT, Balle.Rayon / 2, Balle.Rayon / 2);
             }
         }
 
@@ -118,7 +120,7 @@ namespace CasseBrique
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, C_DEFAULT_BRIQUE_WIDTH, C_DEFAULT_BRIQUE_HEIGHT);
             }
         }
 
@@ -244,7 +246,7 @@ namespace CasseBrique
 
                     if (!Collision && CollisionRectangleHautDroit.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
-                        if ((_Balle.CenterPositionX - (Position.X + Texture.Width)) < (Position.Y - _Balle.CenterPositionY)) //Balle plus proche du rectangle du haut
+                        if ((_Balle.CenterPositionX - (Position.X + C_DEFAULT_BRIQUE_WIDTH)) < (Position.Y - _Balle.CenterPositionY)) //Balle plus proche du rectangle du haut
                         {
                             Collision = true;
                             InvertY = true;
@@ -279,7 +281,7 @@ namespace CasseBrique
 
                     if (!Collision && CollisionRectangleBasDroit.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
-                        if ((_Balle.CenterPositionX - (Position.X + Texture.Width)) < (_Balle.CenterPositionY - (Position.Y + Texture.Height))) //Balle plus proche du rectangle du bas
+                        if ((_Balle.CenterPositionX - (Position.X + C_DEFAULT_BRIQUE_WIDTH)) < (_Balle.CenterPositionY - (Position.Y + C_DEFAULT_BRIQUE_HEIGHT))) //Balle plus proche du rectangle du bas
                         {
                             Collision = true;
                             InvertY = true;
@@ -314,7 +316,7 @@ namespace CasseBrique
 
                     if (!Collision && CollisionRectangleBasGauche.Contains((int)_Balle.CenterPositionX, (int)_Balle.CenterPositionY))
                     {
-                        if ((Position.X - _Balle.CenterPositionX) < (_Balle.CenterPositionY - (Position.Y + Texture.Height))) //Balle plus proche du rectangle du bas
+                        if ((Position.X - _Balle.CenterPositionX) < (_Balle.CenterPositionY - (Position.Y + C_DEFAULT_BRIQUE_HEIGHT))) //Balle plus proche du rectangle du bas
                         {
                             Collision = true;
                             InvertY = true;
